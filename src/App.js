@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, {createContext, useEffect, useState} from "react";
 import './App.css';
+import ContentTheme from "./components/light dark";
+
+
+
+export const ThemeContent = createContext(null);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [theme,setTheme] = useState(false)
+    const handeleClick = ()=>{
+        setTheme(!theme)
+    }
+
+    useEffect(()=>{
+        if (theme === true)
+             document.body.classList.add("dark");
+        else {
+             document.body.classList.remove("dark");
+        }
+        },[theme])
+    return (
+        <ThemeContent.Provider>
+            <div className='theme'>
+                <h1 className='text-content'>Light Dark Theme</h1>
+                <div className='toggleSwitch'>
+                 <button onClick={handeleClick} id= 'switch'>
+                    <div className='left'>
+                    </div>
+                    <div className='right'>
+                    </div>
+                 </button>
+            </div>
+                <ContentTheme/>
+
+            </div>
+        </ThemeContent.Provider>
+    )
 }
 
 export default App;
